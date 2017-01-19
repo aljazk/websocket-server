@@ -1,0 +1,26 @@
+<script>
+var connection = new WebSocket('ws://localhost/echo');
+// When the connection is open, send some data to the server
+connection.onopen = function () {
+	console.log('Connection open!');
+	console.log('Sending..');
+	connection.send("TEST");
+	console.log('Done.');
+};
+
+connection.onclose = function(e) {
+	console.log('Closing error: ' + e.code);
+}
+
+// Log errors
+connection.onerror = function (error) {
+	str = JSON.stringify(error);
+	console.log('WebSocket Error ' + str);
+};
+
+// Log messages from the server
+connection.onmessage = function (e) {
+  console.log('Server: ' + e.data);
+};
+
+</script>
